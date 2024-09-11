@@ -8,7 +8,7 @@ const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 const onRequest = (request, response) => {
   // the request.url is the URL after the domain:port (the pathname after the /
-  // and including the /)**
+  // and including the /)*
   // does it put a / by default for the request.url
   // even though no / was in the url (127.0.0.1:3000)**
   console.log(request.url);
