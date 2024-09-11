@@ -3,20 +3,17 @@ const fs = require('fs'); // pull in the file system module
 // files and paths (allows us to create a file object from a file path)**
 const path = require('path');
 
-const loadFile = (request, response, filePath) => {
+const loadFile = (request, response, filePath, videoType) => {
   // use path modules resolve function to create a file object**
   // the resolve function takes a directory (dirname)** and the relative path to a file
   // from that directory** (how is the party.mp4 from the dirname directory)**
   // does not load the file but creates a file object based on the file**
 
-  //const file = path.resolve(__dirname, '../client/party.mp4');
+  // const file = path.resolve(__dirname, '../client/party.mp4');
 
-  //is this correct how does this work (how does it put the link together)****
-  //I added an extra parameter here for the link to put in the switch statement in server.js****
-  //is this cleaner code or****
-  //check if changing pages is ok****
-  //how does this know to play each video and audio if getParty only called for page 1
-  //and not page 2 and page 3****
+  // is this correct how does this work (how does it put the link together)****
+  // is this cleaner code or****
+  // check if changing pages is ok****
   const file = path.resolve(__dirname, filePath);
 
   // fs modules stat function provides statistics about the file (asynchronous function
@@ -71,7 +68,7 @@ const loadFile = (request, response, filePath) => {
     // then that will give us 0000-0001. Then we can split on the - to get an array of
     // beginning and end positions. ['0000', '0001']. (this is the beginning and
     // end ranges of the audio the client wants)**
-    const positions = range.replace('/bytes=/', '').split('-');
+    const positions = range.replace(/bytes=/, '').split('-');
 
     // Next we'll parse the first position (starting range) to an int. The second parameter
     // of parseInt is which number base to use. 10 means base 10 which is typical
@@ -109,7 +106,7 @@ const loadFile = (request, response, filePath) => {
       // tells the browser how big this chunk is in bytes (how did we know to put chunksize)**
       'Content-Length': chunksize,
       // tells the browser the encoding type so that it can reassemble the byte correctly**
-      'Content-Type': 'video/mp4',
+      'Content-Type': videoType,
     });
 
     // create a file stream (take file object and an object

@@ -3,7 +3,8 @@
 // larger files in order to keep memory low and processing efficent
 // streaming is sending the data in pieces rather than all at once
 
-//do we need only one to access multiple pages or different ones to access each page****
+// do we need only one to access multiple pages or different ones to
+// access each page (library that interacts with file system)
 const fs = require('fs');
 
 const index = fs.readFileSync(`${__dirname}/../client/client.html`);
@@ -24,19 +25,17 @@ const getIndex = (request, response) => {
   response.end();
 };
 
-//do we need these**
+// do we need these**
 const getPage2 = (request, response) => {
-    response.writeHead(200, { 'Content-Type': 'text/html' });
-    response.write(index2);
-    response.end();
-
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.write(index2);
+  response.end();
 };
 
 const getPage3 = (request, response) => {
-    response.writeHead(200, { 'Content-Type': 'text/html' });
-    response.write(index3);
-    response.end();
-
+  response.writeHead(200, { 'Content-Type': 'text/html' });
+  response.write(index3);
+  response.end();
 };
 
 module.exports.getIndex = getIndex;
